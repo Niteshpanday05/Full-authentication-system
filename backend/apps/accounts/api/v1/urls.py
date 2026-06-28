@@ -5,6 +5,7 @@ from .views.auth import (
     VerifyEmailAPIView,
     LoginAPIView,
     RefreshTokenAPIView,
+    LogoutAPIView,
 )
 
 urlpatterns = [
@@ -12,4 +13,8 @@ urlpatterns = [
     path("verify-email/", VerifyEmailAPIView.as_view(), name="verify-email"),
     path("login/", LoginAPIView.as_view(), name="login"),
     path("refresh/", RefreshTokenAPIView.as_view(), name="refresh"),
+    path(
+        "logout/",
+        LogoutAPIView.as_view(),
+    ),
 ]

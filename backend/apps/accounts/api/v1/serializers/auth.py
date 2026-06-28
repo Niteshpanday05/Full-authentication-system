@@ -75,3 +75,16 @@ class RefreshTokenSerializer(TokenRefreshSerializer):
     Extend Simple JWT refresh serializer.
     """
     pass
+
+
+class LogoutSerializer(serializers.Serializer):
+
+    refresh = serializers.CharField()
+
+    def save(self):
+
+        refresh_token = self.validated_data["refresh"]
+
+        token = RefreshToken(refresh_token)
+
+        token.blacklist()
