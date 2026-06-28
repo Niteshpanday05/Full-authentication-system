@@ -9,6 +9,7 @@ from ..serializers.auth import LoginSerializer
 
 from apps.accounts.api.v1.serializers.verify_email import VerifyEmailSerializer
 from apps.accounts.tokens import EmailVerificationToken
+from ..serializers.auth import RefreshTokenSerializer
 
 
 class RegisterAPIView(APIView):
@@ -94,4 +95,30 @@ class LoginAPIView(APIView):
                 }
             },
             status=status.HTTP_200_OK
+        )
+        
+
+class RefreshTokenAPIView(APIView):
+
+    permission_classes = [AllowAny]
+
+    def post(self, request):
+
+        serializer = RefreshTokenSerializer(
+            data=request.data
+        )
+
+        serializer.is_valid(
+            raise_exception=True
+        )
+
+        return Response(
+            {
+                "message": "Token refreshed successfully.",
+
+                "access": serializer.validated_data["access"],
+
+                "refresh": serializer.validated_data.get("refresh"),
+            },
+            status=status.HTTP_200_OK,
         )

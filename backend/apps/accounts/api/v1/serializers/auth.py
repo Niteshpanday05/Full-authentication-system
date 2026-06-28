@@ -3,6 +3,7 @@ from rest_framework import serializers
 from apps.accounts.models import User
 from apps.accounts.services import AccountService
 from apps.accounts.validators import validate_user_password
+from rest_framework_simplejwt.serializers import TokenRefreshSerializer
 
 
 
@@ -66,3 +67,11 @@ class LoginSerializer(serializers.Serializer):
             attrs["email"],
             attrs["password"]
         )
+        
+
+
+class RefreshTokenSerializer(TokenRefreshSerializer):
+    """
+    Extend Simple JWT refresh serializer.
+    """
+    pass
