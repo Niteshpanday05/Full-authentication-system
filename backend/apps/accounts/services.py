@@ -1,18 +1,39 @@
-from .models import User
+from django.contrib.auth import authenticate
+from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework.exceptions import AuthenticationFailed
 
 
 class AccountService:
 
+    ...
+
     @staticmethod
-    def create_user(validated_data):
-        password = validated_data.pop("password")
+    def login(email: str, password: str):
 
-        validated_data.pop("confirm_password")
-
-        user = User.objects.create_user(
-            password=password,
-            **validated_data
+        user = authenticate(
+            username=email,
+            password=password
         )
 
-        return user
-    
+        if not user:
+            raise AuthenticationFailed(
+                "Invalid email or password."
+            )
+
+        if not user.is_active:
+            raise AuthenticationFailed(
+                "Your account is disabled."
+            )
+
+        if not user.is_verified:
+            raise AuthenticationFailed(
+                "Please verify your email first."
+            )
+
+        refresh = RefreshToken.for_user(user)
+
+        return {
+            "user": user,
+            "access": str(refresh.access_token),
+            "refresh": str(refresh),
+        }

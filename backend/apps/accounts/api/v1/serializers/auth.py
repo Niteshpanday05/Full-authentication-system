@@ -1,37 +1,68 @@
 from rest_framework import serializers
-from django.contrib.auth import get_user_model
 
-User = get_user_model()
+from apps.accounts.models import User
+from apps.accounts.services import AccountService
+from apps.accounts.validators import validate_user_password
+
+
+
+from apps.accounts.services import AccountService
 
 
 class RegisterSerializer(serializers.ModelSerializer):
+
     password = serializers.CharField(write_only=True)
     confirm_password = serializers.CharField(write_only=True)
 
     class Meta:
         model = User
-        fields = [
+        fields = (
             "email",
             "first_name",
             "last_name",
             "password",
             "confirm_password",
-        ]
+        )
+        
+    
+
+    def validate_email(self, value):
+        value = value.lower()
+
+        if User.objects.filter(email=value).exists():
+            raise serializers.ValidationError(
+                "User already exists."
+            )
+
+        return value
+
+    def validate_password(self, value):
+        validate_user_password(value)
+        return value
 
     def validate(self, attrs):
+
         if attrs["password"] != attrs["confirm_password"]:
             raise serializers.ValidationError(
-                {"confirm_password": "Passwords do not match."}
+                "Passwords do not match."
             )
+
         return attrs
 
     def create(self, validated_data):
-        validated_data.pop("confirm_password")
+        return AccountService.create_user(validated_data)
+    
+class LoginSerializer(serializers.Serializer):
 
-        user = User.objects.create_user(
-            email=validated_data["email"],
-            first_name=validated_data.get("first_name", ""),
-            last_name=validated_data.get("last_name", ""),
-            password=validated_data["password"],
+    email = serializers.EmailField()
+
+    password = serializers.CharField(
+        write_only=True
+    )
+
+    def validate(self, attrs):
+
+        return AccountService.login(
+            attrs["email"],
+            attrs["password"]
         )
-        return user
