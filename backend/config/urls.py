@@ -23,8 +23,8 @@ urlpatterns = [
     ),
 
   path(
-    "api/auth/",
-    include("apps.accounts.api.urls"),
+    "api/v1/auth/",
+    include("apps.accounts.api.v1.urls"),
 )
 ]
 
