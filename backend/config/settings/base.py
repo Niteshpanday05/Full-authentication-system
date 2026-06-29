@@ -15,6 +15,7 @@ from datetime import timedelta
 from decouple import config
 
 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
@@ -189,3 +190,9 @@ SPECTACULAR_SETTINGS = {
     "DESCRIPTION": "Production Authentication API",
     "VERSION": "1.0.0",
 }
+
+#for email verification
+
+FRONTEND_URL = "http://localhost:3000"
+
+DEFAULT_FROM_EMAIL = "niteshpanday.np5@gmail.com"

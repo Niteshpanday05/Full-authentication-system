@@ -2,6 +2,7 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny
+from rest_framework.permissions import IsAuthenticated
 
 from apps.accounts.models import User
 from ..serializers.auth import LoginSerializer
@@ -10,6 +11,14 @@ from ..serializers.auth import LoginSerializer
 from apps.accounts.api.v1.serializers.verify_email import VerifyEmailSerializer
 from apps.accounts.tokens import EmailVerificationToken
 from ..serializers.auth import RefreshTokenSerializer
+
+from ..serializers.auth import (
+    RegisterSerializer,
+    LoginSerializer,
+    RefreshTokenSerializer,
+    LogoutSerializer,
+)
+
 
 
 class RegisterAPIView(APIView):
@@ -122,11 +131,7 @@ class RefreshTokenAPIView(APIView):
             },
             status=status.HTTP_200_OK,
         )
-        
-from rest_framework.permissions import IsAuthenticated
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from rest_framework import status
+   
 
 from ..serializers.auth import LogoutSerializer
 
