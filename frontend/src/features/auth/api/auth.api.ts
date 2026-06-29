@@ -4,12 +4,16 @@ import { AUTH_ENDPOINTS } from "./endpoints";
 import {
   LoginRequest,
   RegisterRequest,
+   RegisterResponse,
 } from "../types/auth.types";
 
 export const AuthAPI = {
-  register(data: RegisterRequest) {
-    return api.post(AUTH_ENDPOINTS.REGISTER, data);
-  },
+ register(data: RegisterRequest) {
+    return api.post<RegisterResponse>(
+        AUTH_ENDPOINTS.REGISTER,
+        data
+    );
+},
 
   login(data: LoginRequest) {
   console.log("Base URL:", api.defaults.baseURL);
