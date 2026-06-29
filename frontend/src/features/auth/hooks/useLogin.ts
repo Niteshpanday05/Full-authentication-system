@@ -16,6 +16,7 @@ export function useLogin() {
       email,
       password,
     });
+     console.log("Login Success:", data);
 
     tokenManager.setToken(data.access);
 
@@ -27,7 +28,7 @@ export function useLogin() {
       })
     );
 
-    router.push("/dashboard");
+   router.replace("/");
   };
 
   return {
