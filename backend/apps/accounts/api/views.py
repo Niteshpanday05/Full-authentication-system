@@ -19,3 +19,7 @@ class RegisterAPIView(APIView):
             {"message": "Registration successful."},
             status=status.HTTP_201_CREATED,
         )
+    
+    def register(request):
+        print("🔥 FRONTEND REGISTER HIT")
+        print(request.data)

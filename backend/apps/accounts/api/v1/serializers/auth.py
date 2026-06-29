@@ -1,5 +1,6 @@
 from rest_framework import serializers
 
+
 from apps.accounts.models import User
 from apps.accounts.services import AccountService
 from apps.accounts.validators import validate_user_password
