@@ -3,6 +3,8 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny
 from rest_framework.permissions import IsAuthenticated
+from ..services.auth_service import AuthService
+
 
 from apps.accounts.models import User
 from ..serializers.auth import LoginSerializer
@@ -142,20 +144,22 @@ class LogoutAPIView(APIView):
 
     def post(self, request):
 
-        serializer = LogoutSerializer(
-            data=request.data
-        )
+        serializer = LogoutSerializer(data=request.data)
 
-        serializer.is_valid(
-            raise_exception=True
-        )
+        serializer.is_valid(raise_exception=True)
 
-        serializer.save()
+        refresh = serializer.validated_data["refresh"]
+
+        try:
+
+            AuthService.logout(refresh)
+
+        except Exception:
+            pass
 
         return Response(
             {
-                "message":
-                "Logout successful."
+                "message": "Logged out successfully"
             },
             status=status.HTTP_200_OK
         )
