@@ -4,7 +4,9 @@ import { AUTH_ENDPOINTS } from "./endpoints";
 import {
   LoginRequest,
   RegisterRequest,
-   RegisterResponse,
+   RegisterResponse, LogoutRequest,
+  LogoutResponse,
+
 } from "../types/auth.types";
 
 export const AuthAPI = {
@@ -37,5 +39,28 @@ export const AuthAPI = {
 
   profile() {
     return api.get(AUTH_ENDPOINTS.PROFILE);
+  },
+
+  verifyEmail(token: string) {
+  return api.post(
+    `${AUTH_ENDPOINTS.VERIFY_EMAIL}?token=${token}`
+  );
+},
+
+resendVerification(email: string) {
+  return api.post(
+    "/auth/resend-verification/",
+    { email }
+  );
+},
+};
+
+
+export const AuthAPI = {
+  logout(data: LogoutRequest) {
+    return api.post<LogoutResponse>(
+      AUTH_ENDPOINTS.LOGOUT,
+      data
+    );
   },
 };

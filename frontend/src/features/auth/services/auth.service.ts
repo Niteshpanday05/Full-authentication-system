@@ -20,4 +20,20 @@ export class AuthService {
 
     return response.data;
 }
+
+// email verification setup
+
+static async verifyEmail(token: string) {
+  const response =
+    await AuthAPI.verifyEmail(token);
+
+  return response.data;
+}
+
+static async resendVerification(email: string) {
+  const response =
+    await AuthAPI.resendVerification(email);
+
+  return response.data;
+}
 }

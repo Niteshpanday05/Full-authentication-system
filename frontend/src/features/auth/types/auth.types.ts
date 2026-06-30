@@ -29,3 +29,11 @@ export interface RegisterRequest {
 export interface RegisterResponse {
   message: string;
 }
+
+export interface LogoutRequest {
+  refresh: string;
+}
+
+export interface LogoutResponse {
+  message: string;
+}
