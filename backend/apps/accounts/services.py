@@ -46,12 +46,4 @@ class AccountService:
             "access": str(refresh.access_token),
             "refresh": str(refresh),
         }
-            
-    @staticmethod
-    def logout(refresh_token: str):
-
-            token = RefreshToken(refresh_token)
-
-            token.blacklist()
-
-            return True
+   
