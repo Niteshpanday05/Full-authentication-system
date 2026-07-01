@@ -1,7 +1,6 @@
 import { api } from "@/lib/axios";
 import { AUTH_ENDPOINTS } from "./endpoints";
 
-
 import {
   LoginRequest,
   RegisterRequest,
@@ -58,13 +57,6 @@ resendVerification(email: string) {
   );
 },
 
-export const AuthAPI = {
-  logout(data: LogoutRequest) {
-    return api.post<LogoutResponse>(
-      AUTH_ENDPOINTS.LOGOUT,
-      data
-    );
-  },
-};
+
 };
 
