@@ -2,8 +2,8 @@ export * from "./types/search.types";
 
 export * from "./constants";
 
-export { default as SearchBar } from "./components/SearchBar";
+export * from "./utils/highlight";
 
-export { default as SearchInput } from "./components/SearchInput";
+export * from "./utils/storage";
 
-export { default as SearchDropdown } from "./components/SearchDropdown";
+export * from "./utils/searchHelpers";
