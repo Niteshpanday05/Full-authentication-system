@@ -1,9 +1,13 @@
-import React from 'react'
+import Navbar from "@/components/navbar/Navbar";
 
-const page = () => {
+export default function Home() {
   return (
-    <div>page</div>
-  )
-}
+    <>
+      <Navbar />
 
-export default page
+      <main className="mx-auto max-w-7xl p-6">
+        <h1 className="text-3xl font-bold">Welcome to ShopMart</h1>
+      </main>
+    </>
+  );
+}
